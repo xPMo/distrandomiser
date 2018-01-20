@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import distance, random, sys, os, collections
+import distance, random, sys, os, collections, glob
 
 # Change to true if you want debug output (this will be a command line
 # flag eventually)
@@ -91,7 +91,7 @@ print(f'Distrandomiser Version {version}\n')
 
 # 1 = Standard
 # 1337 = No softlock checking, essentially a test mode
-mode = 1
+mode = 1337
 
 if mode == 1:
     #requires_jets = [fr, ma, co]
@@ -162,7 +162,7 @@ while len(tracked_levels) != 10:
         unwanted_objects = ['AdventureAbilitySettings', 'WingCorruptionZone',
                             'WingCorruptionZoneLarge', 'InfoDisplayBox',
                             'InfoAndIndicatorDisplayBox']
-        objects = [obj for obj in lvlbytes.layers[0].objects if obj.type not in unwanted_objects];
+        objects = [obj for obj in lvlbytes.layers[0].objects if obj.type not in unwanted_objects]
 
         origabox = next((obj for obj in objects if obj.type == 'EnableAbilitiesBox'), None)
         if origabox != None:
@@ -171,7 +171,7 @@ while len(tracked_levels) != 10:
                 if ability == 'EnableJumping':
                     if level == de:
                         if not jets_enabled and not wings_enabled:
-                            print('level can\'t give jump; it needs flight')
+                            debug_print('level can\'t give jump; it needs flight')
                             continue
                         else:
                             abox = jump_abox
@@ -196,6 +196,13 @@ while len(tracked_levels) != 10:
                 debug_print('jets on')
 
             abox.transform = origabox.transform
+            # Set the IDs to stupid high numbers to prevent conflicts
+            # Flimsy solution, but it works
+            abox.container.id = 99996
+            lastid = 99996
+            for fragment in abox.fragments:
+                lastid + 1
+                fragment.container.id = lastid
             objects.remove(origabox)
             objects.append(abox)
 
