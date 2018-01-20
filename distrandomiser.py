@@ -13,7 +13,11 @@ def debug_print(text):
 
 # Get the directory passed
 try:
-    leveldir = sys.argv[1] + '/'
+    if not sys.argv[1] == "--version":
+        leveldir = sys.argv[1] + '/'
+    else:
+        print(f'Distrandomiser Version {version}')
+        exit()
 except IndexError:
     # Use the current working directory
     leveldir = ''
