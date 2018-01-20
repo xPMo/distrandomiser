@@ -5,7 +5,7 @@ import distance, random, sys, os, collections
 # flag eventually)
 debug = False
 
-version = '0.1.1-alpha'
+version = '0.1.2-alpha'
 
 def debug_print(text):
     if debug:
@@ -229,7 +229,7 @@ playlisttext = '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
                     '<Transform Version="0" GUID="0" />\n' + \
                     '<LevelPlaylist Version="0" GUID="0">\n' + \
                     '<PlaylistName>Randomiser</PlaylistName>\n' + \
-                    f'<NumberOfLevelsInPlaylist>{len(tracked_levels)}</NumberOfLevelsInPlaylist>\n' + \
+                    f'<NumberOfLevelsInPlaylist>{len(tracked_levels) + 2}</NumberOfLevelsInPlaylist>\n' + \
                     '<ModeAndLevelInfoVersion>0</ModeAndLevelInfoVersion>\n'
 
 runs = 0
@@ -239,7 +239,13 @@ for level in tracked_levels:
                     '<LevelName>???</LevelName>\n' + \
                     f'<LevelPath>MyLevels/randomiser{runs}.bytes</LevelPath>'
 
-playlisttext += '</LevelPlaylist>\n</GameObject>'
+playlisttext += '<GameMode>9</GameMode>\n' + \
+                    '<LevelName>???</LevelName>\n' + \
+                    f'<LevelPath>OfficialLevels/destination unknown.bytes</LevelPath>' + \
+                    '<GameMode>9</GameMode>\n' + \
+                    '<LevelName>???</LevelName>\n' + \
+                    f'<LevelPath>OfficialLevels/credits.bytes</LevelPath>' + \
+                    '</LevelPlaylist>\n</GameObject>'
 
 print(f'Writing randomiser.xml...')
 with open(f'{distdir}/LevelPlaylists/randomiser.xml', 'w') as playlistfile:

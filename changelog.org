@@ -1,4 +1,8 @@
 * Changelog
+** v0.1.2-alpha
+- Destination Unknown and Credits are now included in the playlist
+  (you do not need the .bytes, though - they are always added at the end
+  unmodified)
 ** v0.1.1-alpha
 - Fixed generated levels having ID conflicts that would prevent them 
   from loading.

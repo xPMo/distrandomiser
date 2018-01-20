@@ -51,11 +51,10 @@ dependencies required to use it:
 After that, you need to get the .bytes files of the original Adventure
 maps. You can do this for most of them by simply opening them in the
 editor and saving them as a new file. Don't worry about getting a hold
-of Destination Unknown or the Credits level for now - neither are
-included at the moment as I can't be bothered to install Spectrum
-to get them - and even then, once they are implemented, they may only be
-inserted completely unmodified at the end of the playlist, as nobody wants
-a long unskippable cutscene in the middle of a run.
+of Destination Unknown or the Credits level, these are always added
+to the end of the playlist unmodified (mostly for ease of use, the
+fact it doesn't make sense to have the ending in the middle of the run,
+and nobody wants a minute long cutscene in the middle of their game).
 
 Once you have the map files, you can run the randomiser script
 with Python.
