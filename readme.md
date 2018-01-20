@@ -46,7 +46,7 @@ First, you need to aquire the randomiser script, and install the
 dependencies required to use it:
 
     $ git clone https://github.com/TntMatthew/distrandomiser.git
-    $ pip install distance numpy numpy-quaternion
+    $ pip install distanceutils numpy numpy-quaternion
     
 After that, you need to get the .bytes files of the original Adventure
 maps. You can do this for most of them by simply opening them in the
