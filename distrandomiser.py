@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import distance, random, sys, os, collections, glob
+import distance, random, sys, os, collections
 
 # Change to true if you want debug output (this will be a command line
 # flag eventually)
