@@ -5,7 +5,7 @@ import distance, random, sys, os, collections, glob
 # flag eventually)
 debug = False
 
-version = '0.1-alpha'
+version = '0.1.1-alpha'
 
 def debug_print(text):
     if debug:
@@ -95,7 +95,7 @@ print(f'Distrandomiser Version {version}\n')
 
 # 1 = Standard
 # 1337 = No softlock checking, essentially a test mode
-mode = 1337
+mode = 1
 
 if mode == 1:
     #requires_jets = [fr, ma, co]

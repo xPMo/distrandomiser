@@ -1,0 +1,7 @@
+* Changelog
+** v0.1.1-alpha
+- Fixed generated levels having ID conflicts that would prevent them 
+  from loading.
+- Added a --verison flag.
+** v0.1-alpha
+- Initial release

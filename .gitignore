@@ -2,3 +2,6 @@
 # so this is here so I do not commit them.
 *.bytes
 
+# Ignore emacs autosave data
+.#*
+
