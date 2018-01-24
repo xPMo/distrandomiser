@@ -5,7 +5,7 @@ import distance, random, sys, os, collections
 # flag eventually)
 debug = False
 
-version = '0.1.2-alpha'
+version = '0.1.3-alpha'
 
 def debug_print(text):
     if debug:
@@ -114,10 +114,9 @@ elif mode == 1337:
 seed = input('Seed (type nothing for random seed): ')
 
 if seed == '':
-    seed = None
-    print('Generating randomiser game with random seed...')
-else:
-    print(f'Generating randomiser game with seed {seed}...')
+    seed = random.randint(0, sys.maxsize)
+
+print(f'Generating randomiser game with seed {seed}...')
 
 random.seed(seed)
 
@@ -225,7 +224,9 @@ while len(tracked_levels) != 10:
 
 debug_print(tracked_levels)
 
-playlisttext = '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
+playlisttext = f'<!-- Distrandomiser Settings\nSeed: {seed}\n' + \
+               f'Version: {version} -->\n' + \
+               '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
                     '<Transform Version="0" GUID="0" />\n' + \
                     '<LevelPlaylist Version="0" GUID="0">\n' + \
                     '<PlaylistName>Randomiser</PlaylistName>\n' + \
@@ -237,11 +238,11 @@ for level in tracked_levels:
     runs += 1
     playlisttext += '<GameMode>9</GameMode>\n' + \
                     '<LevelName>???</LevelName>\n' + \
-                    f'<LevelPath>MyLevels/randomiser{runs}.bytes</LevelPath>'
+                    f'<LevelPath>MyLevels/randomiser{runs}.bytes</LevelPath>\n'
 
 playlisttext += '<GameMode>9</GameMode>\n' + \
                     '<LevelName>???</LevelName>\n' + \
-                    f'<LevelPath>OfficialLevels/destination unknown.bytes</LevelPath>' + \
+                    f'<LevelPath>OfficialLevels/destination unknown.bytes</LevelPath>\n' + \
                     '<GameMode>9</GameMode>\n' + \
                     '<LevelName>???</LevelName>\n' + \
                     f'<LevelPath>OfficialLevels/credits.bytes</LevelPath>' + \
