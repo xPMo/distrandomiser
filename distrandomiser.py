@@ -3,7 +3,7 @@ import distance, random, sys, os, collections
 
 # Change to true if you want debug output (this will be a command line
 # flag eventually)
-debug = False
+debug = True
 
 version = '0.1.3-alpha'
 
@@ -33,8 +33,6 @@ fr = f'{leveldir}friction.bytes'
 ma = f'{leveldir}the thing about machines.bytes'
 co = f'{leveldir}corruption.bytes'
 mo = f'{leveldir}monolith.bytes'
-du = f'{leveldir}destination unknown.bytes'
-cr = f'{leveldir}credits.bytes'
 
 # Get the location of the Distance directory
 if sys.platform == 'linux' or sys.platform == 'linux2':
@@ -46,20 +44,12 @@ elif sys.platform == 'windows':
 
 # This requires some explanation. It seems the distance module doesn't have
 # setters on the ability settings on the enable triggers, but you CAN
-# alter the transform. So... here I have all the transforms for each
-# level's ability box, and obtain every ability box in advance so I
-# can alter the abilities enabled on each level.
+# alter the transform. So... here I obtain every ability box from the
+# levels in advance so I can alter the abilities enabled on each level.
 #
 # ...This is the most ridiculous hack I think I've ever written.
 # Desperate times call for desperate measures, indeed... at least
 # it works?
-bs_abox_transform = ((691.8410034179688, 7.955999851226807, -2433.93310546875), (0, 0, 0, 1), (66.25, 66.25, 362.3999938964844))
-ls_abox_transform = ((-685.8243408203125, 26.670000076293945, -389.71746826171875), (0.0, 0.5000000596046448, 0.0, -0.8660253882408142), (112.78399658203125, 112.78399658203125, 484.0814208984375))
-de_abox_trasnform = ((-3988.756103515625, -29.958999633789062, -2159.41552734375), (0, 0, 0, 1), (200.0, 200.0, 638.0))
-af_abox_transform = ((383.33331298828125, 164.0807647705078, -6622.5146484375), (0.3420201539993286, 0.9396926760673523, -1.719538545330579e-06, -9.84505049927975e-07), (199.99996948242188, 200.0, 529.7343139648438))
-mo_abox_transform = ((-211.4759979248047, 116.73799896240234, -5069.0400390625), (0, 0, 0, 1), (268.1130065917969, 268.1130065917969, 268.1130065917969))
-
-# Get the ability boxes
 for lvl in [ls, de, af]:
     lvlbytes = distance.Level(lvl)
     for obj in lvlbytes.layers[0].objects:
@@ -70,8 +60,6 @@ for lvl in [ls, de, af]:
                 wings_abox = obj
             elif obj.abilities['EnableJetRotating'] == 1:
                 jets_abox = obj
-
-aboxes = [jump_abox, wings_abox, jets_abox]
 
 
 #available_levels = [bs, ls, ns, de, gz, af, fr, ma, co, mo, du, cr]
@@ -137,7 +125,6 @@ ability_trigger_count = 0
 
 debug_print(ability_order)
 
-#while len(tracked_levels) != 12:
 while len(tracked_levels) != 10:
     level = available_levels[random.randint(0,len(available_levels) - 1)]
 
@@ -186,7 +173,7 @@ while len(tracked_levels) != 10:
                     abox = jets_abox
                 tracked_abilities.append(ability)
             else:
-                abox = aboxes[random.randint(0,2)]
+                abox = origabox
 
             if abox == jump_abox:
                 jump_enabled = True
@@ -213,8 +200,6 @@ while len(tracked_levels) != 10:
         debug_print('added ' + level)
         tracked_levels.append(level)
         available_levels.remove(level)
-        #print(tracked_levels)
-
 
         lvlbytes.layers[0].objects = objects
 
