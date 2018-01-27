@@ -3,7 +3,7 @@ import distance, random, sys, os, collections
 
 # Change to true if you want debug output (this will be a command line
 # flag eventually)
-debug = True
+debug = False
 
 version = '0.1.3-alpha'
 
