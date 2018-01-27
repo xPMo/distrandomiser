@@ -28,9 +28,18 @@ ability to generate customised games, not just randomised ones.
 It shouldn't be possible to get stuck with the current algorithm, but
 you may need to use techs like wallshoving (pushing yourself against
 walls to leave the track), which may be tricky or unpredictable. Again,
-alpha; this is still somewhat experimental. If you do get stuck and
-can't progress, make a new issue so I can check that out (or tell you
-how to beat it if you just have no idea what to do).
+alpha; this is still somewhat experimental. If you're certain you've
+ran into a softlock and can't progress, make a new issue here so I can
+check that out - remember to include the seed! You can recover it in
+your generated randomiser.xml playlist file, or by looking at the script
+output from when you ran the randomiser.
+
+For the benefit of yourself, your stream audience, or both, you may
+want to use a tracker of some sort to show what abilities and maps
+you've unlocked/completed.
+[Here's a really simple one](https://tntmatthew.github.io/disttracker).
+If other people end up making trackers, I'll probably make some kind of
+page to list them all on the github wiki, or something. 
 
 ## Differences from the normal game
 - Obviously, as mentioned in the first sentence of this readme, the order
