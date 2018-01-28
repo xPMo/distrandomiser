@@ -1,26 +1,28 @@
 #!/usr/bin/env python
-import distance, random, sys, os, collections
+import distance, random, sys, os
+from collections import OrderedDict
+from argparse import ArgumentParser
 
-# Change to true if you want debug output (this will be a command line
-# flag eventually)
-debug = False
+VERSION = '0.1.3-alpha'
+# ===============
+# PARSE ARGUMENTS
+# ===============
+parser = ArgumentParser()
 
-version = '0.1.3-alpha'
+parser.add_argument("-V", "--version", action="store_true", help="Print version and exit")
+parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase verbosity")
+parser.add_argument("-a", "--all", action="store_true", help="Shuffle all abilities and maps without regard to map requirement (Warning: this may not end well for you)")
+parser.add_argument("-s", "--seed", type=int, help="Set seed")
+parser.add_argument("dir", help="Create playlist in this directory. (defaults to CWD)", nargs="?", default=os.getcwd())
+
+args = parser.parse_args()
 
 def debug_print(text):
-    if debug:
-        print(text)
+    if args.verbose > 0:
+        print(text, file=sys.stderr)
 
 # Get the directory passed
-try:
-    if not sys.argv[1] == "--version":
-        leveldir = sys.argv[1] + '/'
-    else:
-        print(f'Distrandomiser Version {version}')
-        exit()
-except IndexError:
-    # Use the current working directory
-    leveldir = ''
+leveldir = args.dir + '/'
 
 # Level name shorthands, for convenience
 bs = f'{leveldir}broken symmetry.bytes'
@@ -85,23 +87,22 @@ print(f'Distrandomiser Version {version}\n')
 # 1337 = No softlock checking, essentially a test mode
 mode = 1
 
-if mode == 1:
+if args.all:
+    requires_jets = []
+    requires_jump = []
+    requires_boost = []
+    requires_wings = []
+else:
     #requires_jets = [fr, ma, co]
     requires_jets = []
     requires_jump = [ns, fr, af, ma, mo, du]
     requires_boost = [de, gz, af]
     # These can be done with jets as well.
     requires_wings = [fr, ma, gz, du, mo, af]
-elif mode == 1337:
-    requires_jets = []
-    requires_jump = []
-    requires_boost = []
-    requires_wings = []
 
-
-seed = input('Seed (type nothing for random seed): ')
-
-if seed == '':
+if args.seed:
+    seed = args.seed
+else:
     seed = random.randint(0, sys.maxsize)
 
 print(f'Generating randomiser game with seed {seed}...')
@@ -141,7 +142,7 @@ while len(tracked_levels) != 10:
 
         lvlbytes = distance.Level(level)
         lvlbytes.settings.name = '???'
-        lvlbytes.settings.modes = collections.OrderedDict([(5,0), (13,0), (1,0), (2,0), (8,0)])
+        lvlbytes.settings.modes = OrderedDict([(5,0), (13,0), (1,0), (2,0), (8,0)])
         lvlbytes.settings.abilities = (0,
                                        int(not wings_enabled),
                                        int(not jump_enabled),
