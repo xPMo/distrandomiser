@@ -3,7 +3,7 @@ import distance, random, sys, os
 from collections import OrderedDict
 from argparse import ArgumentParser
 
-VERSION = '0.1.3-alpha'
+VERSION = '0.1.4-alpha'
 # ===============
 # PARSE ARGUMENTS
 # ===============

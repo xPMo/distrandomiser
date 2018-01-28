@@ -68,10 +68,10 @@ and nobody wants a minute long cutscene in the middle of their game).
 Once you have the map files, you can run the randomiser script
 with Python.
 
-    $ python distrandomiser.py [dir_of_level_files]
+    $ python distrandomiser.py [-s [seed]] [dir_of_level_files]
 
-When you run it, you will be asked to input a seed. You can simply just
-press enter if you want to use a random seed. The script will then
+You can use the `-s` (or `--seed`) command line flag to pass a specific
+seed. Otherwise, a random seed will be used. The script will then
 take in the map files, edit them, then automatically spit them out
 into your MyLevels directory with the filenames `randomiser1` through
 `randomiser10`. (Don't worry, all mode tags are stripped so they won't

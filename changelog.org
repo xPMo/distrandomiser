@@ -1,4 +1,9 @@
 * Changelog
+** v0.1.4-alpha
+- Seed is now passed in through a command line flag, instead of the interactive
+  prompt
+- There's also now flags for verbosity and no softlock checking, which previously
+  could only be enabled by editing the script.
 ** v0.1.3-alpha
 - Random seeds are now recoverable - they are printed in the script output
   and in the generated playlist file.
