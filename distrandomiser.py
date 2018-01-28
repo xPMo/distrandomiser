@@ -64,7 +64,6 @@ for lvl in [ls, de, af]:
                 jets_abox = obj
 
 
-#available_levels = [bs, ls, ns, de, gz, af, fr, ma, co, mo, du, cr]
 available_levels = [bs, ls, ns, de, gz, af, fr, ma, co, mo]
 available_abilities = ['EnableJumping', 'EnableJetRotating',
                        'EnableFlying']
@@ -81,7 +80,7 @@ jump_enabled = False
 wings_enabled = False
 jets_enabled = False
 
-print(f'Distrandomiser Version {version}\n')
+print(f'Distrandomiser Version {VERSION}\n')
 
 # 1 = Standard
 # 1337 = No softlock checking, essentially a test mode
@@ -95,10 +94,10 @@ if args.all:
 else:
     #requires_jets = [fr, ma, co]
     requires_jets = []
-    requires_jump = [ns, fr, af, ma, mo, du]
+    requires_jump = [ns, fr, af, ma, mo]
     requires_boost = [de, gz, af]
     # These can be done with jets as well.
-    requires_wings = [fr, ma, gz, du, mo, af]
+    requires_wings = [fr, ma, gz, mo, af]
 
 if args.seed:
     seed = args.seed
@@ -211,7 +210,7 @@ while len(tracked_levels) != 10:
 debug_print(tracked_levels)
 
 playlisttext = f'<!-- Distrandomiser Settings\nSeed: {seed}\n' + \
-               f'Version: {version} -->\n' + \
+               f'Version: {VERSION} -->\n' + \
                '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
                     '<Transform Version="0" GUID="0" />\n' + \
                     '<LevelPlaylist Version="0" GUID="0">\n' + \
