@@ -17,6 +17,10 @@ parser.add_argument("dir", help="Create playlist in this directory. (defaults to
 
 args = parser.parse_args()
 
+print(f'Distrandomiser Version {VERSION}')
+if args.version:
+    exit()
+
 def debug_print(text):
     if args.verbose > 0:
         print(text, file=sys.stderr)
@@ -79,8 +83,6 @@ boost_enabled = True
 jump_enabled = False
 wings_enabled = False
 jets_enabled = False
-
-print(f'Distrandomiser Version {VERSION}\n')
 
 # 1 = Standard
 # 1337 = No softlock checking, essentially a test mode
