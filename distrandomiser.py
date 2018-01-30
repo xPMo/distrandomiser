@@ -105,6 +105,11 @@ else:
 
 print(f'Generating randomiser game with seed {seed}...')
 
+try:
+    seed = int(seed)
+except ValueError:
+    pass
+
 random.seed(seed)
 
 ability_order = []
