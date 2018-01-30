@@ -93,7 +93,7 @@ if args.all:
 else:
     #requires_jets = [fr, ma, co]
     requires_jets = []
-    requires_jump = [ns, fr, af, ma, mo]
+    requires_jump = [ns, af, ma, mo]
     requires_boost = [de, gz, af]
     # These can be done with jets as well.
     requires_wings = [fr, ma, gz, mo, af]
