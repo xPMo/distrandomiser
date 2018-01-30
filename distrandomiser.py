@@ -212,7 +212,13 @@ while len(tracked_levels) != 10:
 
 debug_print(tracked_levels)
 
+if not args.maps_only:
+    variation = 'Normal'
+else:
+    variation = 'Maps Only'
+
 playlisttext = f'<!-- Distrandomiser Settings\nSeed: {seed}\n' + \
+               f'Variation: {variation}\n' + \
                f'Version: {VERSION} -->\n' + \
                '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
                     '<Transform Version="0" GUID="0" />\n' + \
