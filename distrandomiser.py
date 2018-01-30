@@ -12,6 +12,7 @@ parser = ArgumentParser()
 parser.add_argument("-V", "--version", action="store_true", help="Print version and exit")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase verbosity")
 parser.add_argument("-a", "--all", action="store_true", help="Shuffle all abilities and maps without regard to map requirement (Warning: this may not end well for you)")
+parser.add_argument("-m", "--maps-only", action="store_true", help="Randomise maps only")
 parser.add_argument("-s", "--seed", type=str, help="Set seed")
 parser.add_argument("dir", help="Create playlist in this directory. (defaults to CWD)", nargs="?", default=os.getcwd())
 
@@ -108,16 +109,20 @@ random.seed(seed)
 
 ability_order = []
 
-while len(ability_order) < 3:
-    if len(ability_order) == 0:
-        selectint = random.randint(0,2)
-    elif len(ability_order) == 1:
-        selectint = random.randint(0,1)
-    elif len(ability_order) == 2:
-        selectint = 0
+if not args.maps_only:
+    while len(ability_order) < 3:
+        if len(ability_order) == 0:
+            selectint = random.randint(0,2)
+        elif len(ability_order) == 1:
+            selectint = random.randint(0,1)
+        elif len(ability_order) == 2:
+            selectint = 0
 
-    ability_order.append(available_abilities[selectint])
-    available_abilities.remove(available_abilities[selectint])
+        ability_order.append(available_abilities[selectint])
+        available_abilities.remove(available_abilities[selectint])
+else:
+    # Use the standard ability unlock order
+    ability_order = ['EnableJumping', 'EnableFlying', 'EnableJetRotating']
 
 ability_trigger_count = 0
 
