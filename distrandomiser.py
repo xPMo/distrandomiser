@@ -12,7 +12,7 @@ parser = ArgumentParser()
 parser.add_argument("-V", "--version", action="store_true", help="Print version and exit")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase verbosity")
 parser.add_argument("-a", "--all", action="store_true", help="Shuffle all abilities and maps without regard to map requirement (Warning: this may not end well for you)")
-parser.add_argument("-s", "--seed", type=int, help="Set seed")
+parser.add_argument("-s", "--seed", type=str, help="Set seed")
 parser.add_argument("dir", help="Create playlist in this directory. (defaults to CWD)", nargs="?", default=os.getcwd())
 
 args = parser.parse_args()
@@ -83,10 +83,6 @@ boost_enabled = True
 jump_enabled = False
 wings_enabled = False
 jets_enabled = False
-
-# 1 = Standard
-# 1337 = No softlock checking, essentially a test mode
-mode = 1
 
 if args.all:
     requires_jets = []
