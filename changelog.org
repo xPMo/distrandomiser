@@ -1,4 +1,12 @@
 * Changelog
+** v0.2-alpha
+- Added the ~-m~ / ~--maps-only~ option, which will force the default
+  ability order (jump > wings > jets), while keeping the maps randomised.
+- You can use a string for the seed again.
+- No softlock preventation logic (~-a~ / ~--all~) is now noted in the
+  ~randomiser.xml~ file (so anybody who's used it by accident or something
+  can be told their bug report is invalid :^) )
+- The standard logic no longer requires you to have jump to get Friction.
 ** v0.1.4-alpha
 - Seed is now passed in through a command line flag, instead of the interactive
   prompt

@@ -3,7 +3,7 @@ import distance, random, sys, os
 from collections import OrderedDict
 from argparse import ArgumentParser
 
-VERSION = '0.1.4-alpha'
+VERSION = '0.2-alpha'
 # ===============
 # PARSE ARGUMENTS
 # ===============
@@ -217,12 +217,18 @@ while len(tracked_levels) != 10:
 
 debug_print(tracked_levels)
 
+if not args.all:
+    logic = 'Normal'
+else:
+    logic = 'No Softlock Preventation'
+
 if not args.maps_only:
     variation = 'Normal'
 else:
     variation = 'Maps Only'
 
 playlisttext = f'<!-- Distrandomiser Settings\nSeed: {seed}\n' + \
+               f'Logic: {logic}\n' + \
                f'Variation: {variation}\n' + \
                f'Version: {VERSION} -->\n' + \
                '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
