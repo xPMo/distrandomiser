@@ -3,7 +3,7 @@ import distance, random, sys, os
 from collections import OrderedDict
 from argparse import ArgumentParser
 
-VERSION = '0.1.3-alpha'
+VERSION = '0.2-alpha'
 # ===============
 # PARSE ARGUMENTS
 # ===============
@@ -12,10 +12,15 @@ parser = ArgumentParser()
 parser.add_argument("-V", "--version", action="store_true", help="Print version and exit")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="Increase verbosity")
 parser.add_argument("-a", "--all", action="store_true", help="Shuffle all abilities and maps without regard to map requirement (Warning: this may not end well for you)")
-parser.add_argument("-s", "--seed", type=int, help="Set seed")
+parser.add_argument("-m", "--maps-only", action="store_true", help="Randomise maps only")
+parser.add_argument("-s", "--seed", type=str, help="Set seed")
 parser.add_argument("dir", help="Create playlist in this directory. (defaults to CWD)", nargs="?", default=os.getcwd())
 
 args = parser.parse_args()
+
+print(f'Distrandomiser Version {VERSION}')
+if args.version:
+    exit()
 
 def debug_print(text):
     if args.verbose > 0:
@@ -64,7 +69,6 @@ for lvl in [ls, de, af]:
                 jets_abox = obj
 
 
-#available_levels = [bs, ls, ns, de, gz, af, fr, ma, co, mo, du, cr]
 available_levels = [bs, ls, ns, de, gz, af, fr, ma, co, mo]
 available_abilities = ['EnableJumping', 'EnableJetRotating',
                        'EnableFlying']
@@ -81,12 +85,6 @@ jump_enabled = False
 wings_enabled = False
 jets_enabled = False
 
-print(f'Distrandomiser Version {version}\n')
-
-# 1 = Standard
-# 1337 = No softlock checking, essentially a test mode
-mode = 1
-
 if args.all:
     requires_jets = []
     requires_jump = []
@@ -95,10 +93,10 @@ if args.all:
 else:
     #requires_jets = [fr, ma, co]
     requires_jets = []
-    requires_jump = [ns, fr, af, ma, mo, du]
+    requires_jump = [ns, af, ma, mo]
     requires_boost = [de, gz, af]
     # These can be done with jets as well.
-    requires_wings = [fr, ma, gz, du, mo, af]
+    requires_wings = [fr, ma, gz, mo, af]
 
 if args.seed:
     seed = args.seed
@@ -107,20 +105,29 @@ else:
 
 print(f'Generating randomiser game with seed {seed}...')
 
+try:
+    seed = int(seed)
+except ValueError:
+    pass
+
 random.seed(seed)
 
 ability_order = []
 
-while len(ability_order) < 3:
-    if len(ability_order) == 0:
-        selectint = random.randint(0,2)
-    elif len(ability_order) == 1:
-        selectint = random.randint(0,1)
-    elif len(ability_order) == 2:
-        selectint = 0
+if not args.maps_only:
+    while len(ability_order) < 3:
+        if len(ability_order) == 0:
+            selectint = random.randint(0,2)
+        elif len(ability_order) == 1:
+            selectint = random.randint(0,1)
+        elif len(ability_order) == 2:
+            selectint = 0
 
-    ability_order.append(available_abilities[selectint])
-    available_abilities.remove(available_abilities[selectint])
+        ability_order.append(available_abilities[selectint])
+        available_abilities.remove(available_abilities[selectint])
+else:
+    # Use the standard ability unlock order
+    ability_order = ['EnableJumping', 'EnableFlying', 'EnableJetRotating']
 
 ability_trigger_count = 0
 
@@ -210,8 +217,20 @@ while len(tracked_levels) != 10:
 
 debug_print(tracked_levels)
 
+if not args.all:
+    logic = 'Normal'
+else:
+    logic = 'No Softlock Preventation'
+
+if not args.maps_only:
+    variation = 'Normal'
+else:
+    variation = 'Maps Only'
+
 playlisttext = f'<!-- Distrandomiser Settings\nSeed: {seed}\n' + \
-               f'Version: {version} -->\n' + \
+               f'Logic: {logic}\n' + \
+               f'Variation: {variation}\n' + \
+               f'Version: {VERSION} -->\n' + \
                '<GameObject Name="LevelPlaylist" GUID="0">\n' + \
                     '<Transform Version="0" GUID="0" />\n' + \
                     '<LevelPlaylist Version="0" GUID="0">\n' + \
